@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 1rem;
+  min-height: 10vh;
 }
 
 .description {
@@ -195,7 +195,7 @@
   }
 
   .center {
-    padding: 8rem 0 6rem;
+    padding: 2rem 0 2rem;
   }
 
   .center::before {

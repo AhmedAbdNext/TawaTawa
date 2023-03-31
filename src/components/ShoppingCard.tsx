@@ -1,7 +1,8 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import { ShippingCardType } from '@/Types/NavigationTypes'
 
 const products = [
   {
@@ -28,12 +29,11 @@ const products = [
   // More products...
 ]
 
-export default function ShoppingCard() {
-  const [open, setOpen] = useState(true)
+export default function ShoppingCard({isOpen, hundleShippingCard} : ShippingCardType) {
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={hundleShippingCard}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -67,7 +67,7 @@ export default function ShoppingCard() {
                           <button
                             type="button"
                             className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={() => setOpen(false)}
+                            onClick={hundleShippingCard}
                           >
                             <span className="sr-only">Close panel</span>
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -140,7 +140,7 @@ export default function ShoppingCard() {
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={hundleShippingCard}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>

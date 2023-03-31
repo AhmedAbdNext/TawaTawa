@@ -1,4 +1,4 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import Image from 'next/image'
 
 export default function Profile() {
   return (
@@ -61,7 +61,7 @@ export default function Profile() {
           <div className="col-span-full">
             <label className="text-sm">Photo</label>
             <div className="flex items-center space-x-2">
-              <img src="https://source.unsplash.com/30x30/?random" alt="" className="w-10 h-10 rounded-full dark:bg-gray-500 dark:bg-gray-700" />
+              <Image src="/images/logo.svg" alt="" className="w-10 h-10 rounded-full dark:bg-gray-700" width={10} height={10} />
               <button type="button" className="px-4 py-2 border rounded-md dark:border-gray-100">Change</button>
             </div>
           </div>

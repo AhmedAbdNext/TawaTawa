@@ -1,48 +1,15 @@
 
+import { ProductComponentType } from '@/Types/ProductType'
 import Image from 'next/image'
 import React from 'react'
 
 
-export default function ProductComponent() {
+export default function ProductComponent({products}: ProductComponentType) {
 
-  const products = [
-    {
-      id: 1,
-      name: "Colombes Camera",
-      price: 359,
-      href:"#link",
-      description: "15M pixels",
-      picture: "/images/product1.jpg",
-      pictureAlt: "Picture description blabla",
-    },
-    {
-      id: 2,
-      name: "Bookie Drone",
-      price: 70,
-      href:"#link",
-      description: "Red model",
-      picture: "/images/product2.png",
-      pictureAlt: "Picture description blabla",
-    },
-    {
-        id: 3,
-        name: "Bookie Drone",
-        price: 70,
-        href:"#link",
-        description: "Red model",
-        picture: "/images/product2.png",
-        pictureAlt: "Picture description blabla",
-      },
-      {
-        id: 4,
-        name: "Bookie Drone",
-        price: 70,
-        href:"#link",
-        description: "Red model",
-        picture: "/images/product1.jpg",
-        pictureAlt: "Picture description blabla",
-      },
-  ]
+  
+  const myLoader=(src:string)=>{
+    return src
+  }
 
   return (
     <div className="mx-auto py-8 px-4 sm:px-6 w-full max-w-7xl bg-transparent">
@@ -63,7 +30,7 @@ export default function ProductComponent() {
                     {/* :::Picture container */}
                     <div className="aspect-w-1 aspect-h-1 shadow-sm rounded-lg overflow-hidden group-hover:shadow-md">
                       {/* ::::picture */}
-                      <Image src={product.picture} alt={product.pictureAlt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
+                      <Image loader={(p)=>{return myLoader(product.picture)}} src={product.picture} alt={product.pictureAlt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
                       {/* ::::overlay background */}
                       <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-gray-800 via-transparent opacity-70 group-hover:from-transparent" />
                     </div>
@@ -75,9 +42,9 @@ export default function ProductComponent() {
                     {/* :::Info container */}
                     <div className="relative flex flex-col">
                       {/* ::::name */}
-                      <h3 className="text-base text-gray-800 font-semibold">{product.name}</h3>
+                      <h3 className="truncate pb-6 text-base text-gray-800 font-semibold">{product.name}</h3>
                       {/* ::::colors description */}
-                      <p className="mt-1 text-sm text-gray-500 font-medium">{product.description}</p>
+                      <p className="line-clamp-3  mt-1 text-sm text-gray-500 font-medium">{product.description}</p>
                       {/* ::::add to cart button */}
                       <button className="mt-4 py-1.5 w-full rounded-md bg-gray-200 text-sm text-gray-600 font-semibold tracking-wide hover:bg-gray-300 hover:text-gray-800">Add to bag</button>
                     </div>
@@ -92,3 +59,6 @@ export default function ProductComponent() {
     </div>
   )
 }
+
+// tailwindcss text overflow ellipsis ?
+

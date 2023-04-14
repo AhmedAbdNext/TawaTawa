@@ -1,5 +1,6 @@
 
 import { ProductComponentType } from '@/Types/ProductType'
+import { myLoader } from '@/Utils/products'
 import Image from 'next/image'
 import React from 'react'
 
@@ -7,18 +8,11 @@ import React from 'react'
 export default function ProductComponent({products}: ProductComponentType) {
 
   
-  const myLoader=(src:string)=>{
-    return src
-  }
+  
 
   return (
     <div className="mx-auto py-8 px-4 sm:px-6 w-full max-w-7xl bg-transparent">
       <div className="mx-auto max-w-xs sm:max-w-2xl lg:max-w-none">
-        
-        {/* :CATEGORY TITLE */}
-        <h2 className="text-2xl text-gray-700 font-bold">Summer selection</h2>
-
-
         {/* :PRODUCT LIST */}
         <div className="mt-6">
           <ul className="grid grid-cols-4 gap-10">
@@ -30,7 +24,7 @@ export default function ProductComponent({products}: ProductComponentType) {
                     {/* :::Picture container */}
                     <div className="aspect-w-1 aspect-h-1 shadow-sm rounded-lg overflow-hidden group-hover:shadow-md">
                       {/* ::::picture */}
-                      <Image loader={(p)=>{return myLoader(product.picture)}} src={product.picture} alt={product.pictureAlt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
+                      <Image loader={(p)=>{return myLoader(product.mainPicture.src)}} src={product.mainPicture.src} alt={product.mainPicture.alt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
                       {/* ::::overlay background */}
                       <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-gray-800 via-transparent opacity-70 group-hover:from-transparent" />
                     </div>

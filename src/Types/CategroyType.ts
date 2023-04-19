@@ -8,5 +8,9 @@ export interface MCategoryType {
 
 
 export interface CategoryComponentType {
-    categories: MCategoryType[]
+    categories: MCategoryType[],
+    handleSearch: (search: string)=>void,
+    handleCategory: (categoryId: number)=>void,
+    currentCategoryId:number
+
   }

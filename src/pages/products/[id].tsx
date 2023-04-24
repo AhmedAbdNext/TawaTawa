@@ -1,5 +1,5 @@
 import { ProductType } from "@/Types/ProductType";
-import fetchProductFromAirtable, { getProductById } from "@/Utils/products";
+import { fetchAllProducstsFromAirtable, getProductById } from "@/Utils/products";
 import ProductDetail from "@/components/ProductDetail"
 import { GetStaticPaths, GetStaticProps } from "next";
 
@@ -11,7 +11,7 @@ export default function Product({ data }: ProductComponent) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const products: ProductType[] | unknown = await fetchProductFromAirtable()
+    const products: ProductType[] | unknown = await fetchAllProducstsFromAirtable()
     if (products instanceof Array) {
         const paths = products.map((product) => ({
             params: {

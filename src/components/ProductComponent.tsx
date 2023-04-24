@@ -24,7 +24,7 @@ export default function ProductComponent({products}: ProductComponentType) {
                     {/* :::Picture container */}
                     <div className="aspect-w-1 aspect-h-1 shadow-sm rounded-lg overflow-hidden group-hover:shadow-md">
                       {/* ::::picture */}
-                      <Image loader={(p)=>{return myLoader(product.mainPicture.src)}} src={product.mainPicture.src} alt={product.mainPicture.alt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
+                      <Image loader={(p)=>{return myLoader(product.mainPicture.src)}} unoptimized priority src={product.mainPicture.src} alt={product.mainPicture.alt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
                       {/* ::::overlay background */}
                       <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-gray-800 via-transparent opacity-70 group-hover:from-transparent" />
                     </div>

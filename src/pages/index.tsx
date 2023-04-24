@@ -3,14 +3,13 @@ import ProductComponent from '@/components/ProductComponent'
 import CategoriesNav from '@/components/CategoriesNav'
 import { MainType, ProductType } from '@/Types/ProductType'
 import { GetStaticProps } from 'next'
-import fetchProductFromAirtable from '@/Utils/products'
+import  {fetchProductsFromAirtable} from '@/Utils/products'
 import fetchCategoriesFromAirtable from '@/Utils/categories'
 import { useEffect, useState } from 'react'
 
 
-
 export const getStaticProps: GetStaticProps = async () => {
-  const products = await fetchProductFromAirtable()
+  const products = await fetchProductsFromAirtable()
   const categories = await fetchCategoriesFromAirtable()
   return {
     props: {
@@ -34,17 +33,16 @@ export default function Home({ products, categories }: MainType) {
   }
   // UseEffect in filters apply
   useEffect(() => {
-    if(categoryId=== 0 && search === ""){
+    if (categoryId === 0 && search === "") {
       return;
     }
-    async function fetchData () {
-      const productsByFilter = await fetchProductFromAirtable(categoryId,search)
+    async function fetchData() {
+      const productsByFilter = await fetchProductsFromAirtable(categoryId, search)
       setProductsByFilter(productsByFilter)
-    } 
+    }
     fetchData()
-    
-  }, [categoryId, search])
 
+  }, [categoryId, search])
 
 
   return (
@@ -54,12 +52,11 @@ export default function Home({ products, categories }: MainType) {
           handleCategory={handleCategory}
           handleSearch={handleSearch}
           currentCategoryId={categoryId}
-
         />
       </div>
-      {productsByFilter.length === 0 && <p className="text-center text-2xl">No products found</p>}  
+      {productsByFilter.length === 0 && <p className="text-center text-2xl">No products found</p>}
       <div className="container mx-auto">
-      <ProductComponent products={productsByFilter} />
+          <ProductComponent products={productsByFilter} />
       </div>
 
     </>

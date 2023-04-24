@@ -2,8 +2,6 @@ import { CategoryComponentType } from "@/Types/CategroyType";
 import Link from "next/link";
 import { SetStateAction, useEffect, useState } from "react";
 
-
-
 export default function CategoriesNav({ categories, handleCategory, handleSearch, currentCategoryId }: CategoryComponentType) {
   const [searchTerm, setSearchTerm] = useState('');
   const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {

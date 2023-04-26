@@ -1,9 +1,8 @@
-import { StarIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
+import { StarIcon } from '@heroicons/react/20/solid'
 import { ProductType } from '@/Types/ProductType'
 import { myLoader } from '@/Utils/products'
 
-const reviews = { href: '#', average: 4, totalCount: 117 }
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -49,7 +48,7 @@ export default function ProductDetail(product: ProductType) {
                 <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                     <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
                         <Image
-                            loader={(p) => { return myLoader(product.mainPicture.src) }} src={product.mainPicture.src} alt={product.mainPicture.alt}
+                            loader={() => { return myLoader(product.mainPicture.src) }} src={product.mainPicture.src} alt={product.mainPicture.alt}
                             className="h-full w-full object-cover object-center"
                             width={100}
                             height={100}
@@ -59,7 +58,7 @@ export default function ProductDetail(product: ProductType) {
                         product.pictures.length > 0 && (
                             <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
                                 <Image
-                                    loader={(p) => { return myLoader(product.pictures[0].src) }} src={product.pictures[0].src} alt={product.pictures[0].alt}
+                                    loader={() => { return myLoader(product.pictures[0].src) }} src={product.pictures[0].src} alt={product.pictures[0].alt}
                                     className="h-full w-full object-cover object-center"
                                     width={100}
                                     height={100}
@@ -72,7 +71,7 @@ export default function ProductDetail(product: ProductType) {
                             product.pictures.length > 1 && (
                                 <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
                                     <Image
-                                        loader={(p) => { return myLoader(product.pictures[1].src) }} src={product.pictures[1].src} alt={product.pictures[1].alt}
+                                        loader={() => { return myLoader(product.pictures[1].src) }} src={product.pictures[1].src} alt={product.pictures[1].alt}
                                         className="h-full w-full object-cover object-center"
                                         width={100}
                                         height={100}
@@ -84,7 +83,7 @@ export default function ProductDetail(product: ProductType) {
                             product.pictures.length > 2 && (
                                 <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
                                     <Image
-                                        loader={(p) => { return myLoader(product.pictures[2].src) }} src={product.pictures[2].src} alt={product.pictures[2].alt}
+                                        loader={() => { return myLoader(product.pictures[2].src) }} src={product.pictures[2].src} alt={product.pictures[2].alt}
                                         className="h-full w-full object-cover object-center"
                                         width={100}
                                         height={100}

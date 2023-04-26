@@ -6,6 +6,8 @@
   "rules": {
     "import/no-unused-modules": [
       "error"
-    ]
+    ],
+    "no-console": "warn",
+    "no-debugger": "warn"
   }
 }

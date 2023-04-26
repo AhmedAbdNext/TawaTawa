@@ -1,49 +1,59 @@
-import styles from '@/styles/Home.module.css'
+import { useState } from 'react'
+import { GetStaticProps } from 'next'
+// Compoents
 import ProductComponent from '@/components/ProductComponent'
 import CategoriesNav from '@/components/CategoriesNav'
-import { MainType, ProductType } from '@/Types/ProductType'
-import { GetStaticProps } from 'next'
-import  {fetchProductsFromAirtable} from '@/Utils/products'
+// Utils
+import { fetchProductsFromAirtable } from '@/Utils/products'
 import fetchCategoriesFromAirtable from '@/Utils/categories'
-import { useEffect, useState } from 'react'
+// Types & Styles
+import { MainType, ProductType } from '@/Types/ProductType'
+import styles from '@/styles/Home.module.css'
 
+interface IFetcher {
+  (
+    selectedCategoryId: number,
+    searchQuery: string
+  ): Promise<unknown>
+}
 
 export const getStaticProps: GetStaticProps = async () => {
-  const products = await fetchProductsFromAirtable()
-  const categories = await fetchCategoriesFromAirtable()
+  const productsPromise = fetchProductsFromAirtable()
+  const categoriesPromise = fetchCategoriesFromAirtable()
+  const [products, categories] = await Promise.all([productsPromise, categoriesPromise])
   return {
     props: {
       products,
-      categories
+      categories,
     }
   }
 }
 
-export default function Home({ products, categories }: MainType) {
-  const [categoryId, setCategoryId] = useState(0)
-  const [search, setSearch] = useState("")
-  const [productsByFilter, setProductsByFilter] = useState<ProductType[]>(products)
-  // Get Category Selected
-  const handleCategory = (categoryId: number) => {
-    setCategoryId(categoryId)
+const Home = ({ products, categories }: MainType) => {
+  // States
+  const [isLoading, setIsLoading] = useState(false)
+  const [stateProducts, setStateProducts] = useState<ProductType[]>(products)
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState(0)
+  // Fetcher
+  const fetcher: IFetcher = async () => {
+    const productsByFilter = await fetchProductsFromAirtable()
+  };
+  // Handle func's
+  const handleCategory = async (currentCategoryId: number) => {
+    setIsLoading(true)
+    setSelectedCategoryId(currentCategoryId)
+    const productsByFilter = await fetchProductsFromAirtable(currentCategoryId, searchQuery)
+    setStateProducts(productsByFilter)
+    setIsLoading(false)
   }
-  // Get Search Input
-  const handleSearch = (search: string) => {
-    setSearch(search)
+  const handleSearch = async (currentSearchQuery: string) => {
+    setIsLoading(true)
+    setSearchQuery(currentSearchQuery)
+    const productsByFilter = await fetchProductsFromAirtable(selectedCategoryId, currentSearchQuery)
+    setStateProducts(productsByFilter)
+    setIsLoading(false)
   }
-  // UseEffect in filters apply
-  useEffect(() => {
-    if (categoryId === 0 && search === "") {
-      return;
-    }
-    async function fetchData() {
-      const productsByFilter = await fetchProductsFromAirtable(categoryId, search)
-      setProductsByFilter(productsByFilter)
-    }
-    fetchData()
-
-  }, [categoryId, search])
-
 
   return (
     <>
@@ -51,14 +61,17 @@ export default function Home({ products, categories }: MainType) {
         <CategoriesNav categories={categories}
           handleCategory={handleCategory}
           handleSearch={handleSearch}
-          currentCategoryId={categoryId}
+          currentCategoryId={selectedCategoryId}
         />
       </div>
-      {productsByFilter.length === 0 && <p className="text-center text-2xl">No products found</p>}
-      <div className="container mx-auto">
-          <ProductComponent products={productsByFilter} />
-      </div>
-
+      {stateProducts.length === 0 && <p className="text-center text-2xl">No products found</p>}
+      {isLoading ? (<p className="text-center text-2xl">Loading...</p>) :
+        (
+          <ProductComponent products={stateProducts} />
+        )
+      }
     </>
   )
 }
+
+export default Home

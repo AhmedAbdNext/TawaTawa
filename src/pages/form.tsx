@@ -1,11 +1,12 @@
-import ProfileForm from "@/components/ProfileForm"
+// Components
+import UserFormula from "@/components/UserFormula"
 
-const Form = () => { 
+const Form = () => {
     return (
         <>
-            <ProfileForm />
+            <UserFormula />
         </>
     )
- }
+}
 
- export default Form
+export default Form

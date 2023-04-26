@@ -1,21 +1,14 @@
-
+import React from 'react'
+import Image from 'next/image'
 import { ProductComponentType } from '@/Types/ProductType'
 import { myLoader } from '@/Utils/products'
-import Image from 'next/image'
-import React from 'react'
+import BodyLayer from './BodyLayer'
 
 
 export default function ProductComponent({products}: ProductComponentType) {
-
-  
-  
-
   return (
-    <div className="mx-auto py-8 px-4 sm:px-6 w-full max-w-7xl bg-transparent">
-      <div className="mx-auto max-w-xs sm:max-w-2xl lg:max-w-none">
-        {/* :PRODUCT LIST */}
-        <div className="mt-6">
-          <ul className="grid grid-cols-4 gap-10">
+    <BodyLayer>
+      <ul className="grid grid-cols-4 gap-10">
             {products.map(product => (
               <li key={product.id} className="col-span-full sm:col-span-2 lg:col-span-1 group relative">
                 <a href={product.href} className="w-full h-full flex flex-col">
@@ -24,7 +17,7 @@ export default function ProductComponent({products}: ProductComponentType) {
                     {/* :::Picture container */}
                     <div className="aspect-w-1 aspect-h-1 shadow-sm rounded-lg overflow-hidden group-hover:shadow-md">
                       {/* ::::picture */}
-                      <Image loader={(p)=>{return myLoader(product.mainPicture.src)}} unoptimized priority src={product.mainPicture.src} alt={product.mainPicture.alt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
+                      <Image loader={()=>{return myLoader(product.mainPicture.src)}} unoptimized priority src={product.mainPicture.src} alt={product.mainPicture.alt} className="w-full h-full object-cover object-center"  width={100} height={100}/>
                       {/* ::::overlay background */}
                       <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-gray-800 via-transparent opacity-70 group-hover:from-transparent" />
                     </div>
@@ -47,10 +40,7 @@ export default function ProductComponent({products}: ProductComponentType) {
               </li>
             ))}
           </ul>
-        </div>
-
-      </div>
-    </div>
+    </BodyLayer>
   )
 }
 

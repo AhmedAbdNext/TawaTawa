@@ -1,14 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import Image from 'next/image'
+import BodyLayer from './BodyLayer'
 
-export default function Profile() {
+export default function UserFormula() {
   return (
-    <div className="mx-auto py-8 px-4 sm:px-6 w-full max-w-7xl bg-transparent">
-      <div className="mx-auto max-w-xs sm:max-w-2xl lg:max-w-none">
-        <div className="mt-6">
-          <section className="dark:bg-gray-800 dark:text-gray-50">
+    <BodyLayer>
+      <section className="dark:bg-gray-800 dark:text-gray-50">
             <form action="" className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
-              <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
+              <fieldset className="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                 <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                   <div className="col-span-full sm:col-span-3">
                     <label className="text-sm">Nom</label>
@@ -63,8 +61,6 @@ export default function Profile() {
               </fieldset>
             </form>
           </section>
-        </div>
-      </div>
-    </div>
+      </BodyLayer>
   )
 }

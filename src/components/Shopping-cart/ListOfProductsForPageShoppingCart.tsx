@@ -13,19 +13,26 @@ const ListOfProductsForPageShoppingCart = () => {
     const totalPrice = productsInShoppoingCart.reduce((acc, product) => acc + product.price, 0).toFixed(3)
     // function to remove products from productsInShoppoingCart
     const handleRemoveProduct = (product) => {
-        setProductsInShoppingCart((oldCart) => {
-            return oldCart.filter((oldProduct) => oldProduct.id !== product.id)
-        })
+        if (window.confirm("Voulez-vous supprimer ce produit de votre panier ?")) {
+            setProductsInShoppingCart((oldCart) => {
+                return oldCart.filter((oldProduct) => oldProduct.id !== product.id)
+            })
+        } else {
+            return
+        }
     }
     // function to increment and decrement product quantity 
     const handleIncrementAndDecrementProductQuantity = (product, type) => {
+        // Appert a Yes No Alert message to check if the user wont to delete product if quantity is equal to zero 
+        if (type === "decrement" && product.quantity === 1) {
+            return 
+        }
         setProductsInShoppingCart((oldCart) => {
             return oldCart.map((oldProduct) => {
                 if (oldProduct.id === product.id) {
-                    // quantity
-                    return type === "increment" 
-                    ? { ...oldProduct, quantity: oldProduct.quantity||1 + 1 } 
-                    : { ...oldProduct, quantity: oldProduct.quantity||1 - 1 }
+                    return (type === "increment")
+                        ? { ...oldProduct, quantity: (oldProduct.quantity || 0) + 1 }
+                        : { ...oldProduct, quantity: (oldProduct.quantity || 0) - 1 }
                 } else {
                     return oldProduct
                 }
@@ -53,10 +60,11 @@ const ListOfProductsForPageShoppingCart = () => {
                                     </div>
                                     <div className="text-right">
                                         <p className="text-lg font-semibold">{
-                                            product.price
+                                            (product.price * (product.quantity||1)).toFixed(3)
                                         }</p>
                                         <p className="text-sm line-through dark:text-gray-600">{
-                                            product.oldPrice ? product.oldPrice : ''
+                                            // calc the 
+                                            product.oldPrice ? (product.oldPrice * (product.quantity||1)).toFixed(3) : ''
                                         }</p>
                                     </div>
                                 </div>
@@ -89,7 +97,8 @@ const ListOfProductsForPageShoppingCart = () => {
                                                 <path d="M256,112a16,16,0,0,0-16,16V368a16,16,0,0,0,32,0V128A16,16,0,0,0,256,112Z"></path>
                                             </svg>
                                         </button>
-                                        <input type="number" disabled={false} className="w-12 h-8 text-center border rounded dark:border-gray-600 focus:outline-none" value={ product.quantity } />
+                                        {/** quantity lable */}
+                                        <span className="text-lg font-semibold">{product.quantity}</span>
                                         {/**
                                          * decrement button
                                          */}

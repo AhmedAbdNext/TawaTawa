@@ -16,12 +16,25 @@ export default function ProductComponent({products}: ProductComponentType) {
   const setShoppingCart = useSetRecoilState(recoilProductsInShoppingCart)
   // Handle add to bag
   const handleAddToBag = (product:ProductType) => {
-    // add to recoil
-    setShoppingCart((oldCart:ProductType[]) => {
-      product.quantity= 1
-      return [...oldCart, product]
-    }
-    )
+    // Add the quantity if the product exist in oldProducts list
+    setShoppingCart((oldProducts) => {
+      const productExist = oldProducts.find((oldProduct) => oldProduct.id === product.id)
+      if (productExist) {
+        const newProducts = oldProducts.map((oldProduct) => {
+          if (oldProduct.id === product.id) {
+            return {
+              ...oldProduct,
+              quantity: (oldProduct.quantity||1) + 1
+            }
+          } else {
+            return oldProduct
+          }
+        })
+        return newProducts
+      } else {
+        return [...oldProducts, {...product, quantity: 1}]
+      }
+    })
   }
 
 

@@ -9,18 +9,20 @@ import { useRecoilState } from 'recoil';
 import { recoilProductsInShoppingCart } from '@/Utils/recoilAtoms'
 import { myLoader } from '@/Utils/products'
 import Link from 'next/link'
+import { getTotalPrice, removeProductForProductsInSHoppingCart } from '@/Utils/shoppingCart'
 
 
 export default function DialogShoppingCard({ isOpen, handleContinueShopping }: ShippingCardType) {
   // Recoil
   const [productsInShoppoingCart, setProductsInShoppingCart] = useRecoilState(recoilProductsInShoppingCart)
   // TotalPrice
-  const totalPrice = productsInShoppoingCart.reduce((acc, product) => acc + product.price, 0).toFixed(3)
+  const totalPrice = getTotalPrice(productsInShoppoingCart)
   // function to remove products from productsInShoppoingCart
   const handleRemoveProduct = (product) => {
-    setProductsInShoppingCart((oldCart) => {
-      return oldCart.filter((oldProduct) => oldProduct.id !== product.id)
-    })
+    removeProductForProductsInSHoppingCart(
+      setProductsInShoppingCart,
+      product,
+    )
   }
 
   return (
@@ -94,7 +96,8 @@ export default function DialogShoppingCard({ isOpen, handleContinueShopping }: S
                                           <h3>
                                             <a href={product.href}>{product.name}</a>
                                           </h3>
-                                          <p className="ml-4">{product.price}</p>
+                                          <p className="ml-4">{
+                                            (product.price * (product.quantity||1)).toFixed(3) }</p>
                                         </div>
                                         {/**
                                     * <p className="mt-1 text-sm text-gray-500">{product.color}</p>

@@ -4,26 +4,23 @@ import { useRecoilState } from 'recoil'
 import { recoilProductsInShoppingCart } from '@/Utils/recoilAtoms'
 import Image from 'next/image'
 import { myLoader } from '@/Utils/products'
+import { getTotalPrice, removeProductForProductsInSHoppingCart } from '@/Utils/shoppingCart'
 
 const ListOfProductsForPageShoppingCart = () => {
     // State products for the Atomic instance
     // Recoil
     const [productsInShoppoingCart, setProductsInShoppingCart] = useRecoilState(recoilProductsInShoppingCart)
     // TotalPrice
-    const totalPrice = productsInShoppoingCart.reduce((acc, product) => acc + product.price, 0).toFixed(3)
+    const totalPrice = getTotalPrice(productsInShoppoingCart)
     // function to remove products from productsInShoppoingCart
     const handleRemoveProduct = (product) => {
-        if (window.confirm("Voulez-vous supprimer ce produit de votre panier ?")) {
-            setProductsInShoppingCart((oldCart) => {
-                return oldCart.filter((oldProduct) => oldProduct.id !== product.id)
-            })
-        } else {
-            return
-        }
+        removeProductForProductsInSHoppingCart(
+            setProductsInShoppingCart,
+            product,
+          )
     }
     // function to increment and decrement product quantity 
-    const handleIncrementAndDecrementProductQuantity = (product, type) => {
-        // Appert a Yes No Alert message to check if the user wont to delete product if quantity is equal to zero 
+    const handleIncrementAndDecrementProductQuantity = (product, type) => {       
         if (type === "decrement" && product.quantity === 1) {
             return 
         }
@@ -127,9 +124,9 @@ const ListOfProductsForPageShoppingCart = () => {
                 ) : (
                     <div className="space-y-1 text-right">
                         <p>
-                            <span className="font-semibold">Total:</span>
+                            <span className="font-semibold">Total :   </span>
                             <span className="font-semibold">{
-                                totalPrice
+                                "  "+totalPrice
                             }</span>
                         </p>
                     </div>

@@ -16,14 +16,14 @@ const navigation: NavigationType[] = [
     { name: 'Accueil', href: '/', current: true },
     { name: 'Catégories', href: '/categories', current: false },
     { name: 'Nouveautés', href: '/news', current: false },
-    { name: 'Contactez-nous', href: '/form', current: false },
+    { name: 'Contactez-nous', href: '/contact-us', current: false },
 ]
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbars({ hundleShippingCard }: NavType) {
+export default function Navbars({ handleContinueShopping }: NavType) {
     const router = useRouter()
     const [disabled, setDisabled] = useState(false);
     const { pathname } = router
@@ -34,7 +34,7 @@ export default function Navbars({ hundleShippingCard }: NavType) {
         })
     }
     switch (pathname) {
-        case "/form":
+        case "/contact-us":
             restAll(navigation)
             navigation[3].current = true
             break;
@@ -117,7 +117,7 @@ export default function Navbars({ hundleShippingCard }: NavType) {
                                         setTimeout(() => {
                                             setDisabled(false);
                                         }, 3000);
-                                        hundleShippingCard()
+                                        handleContinueShopping()
                                     }}
                                     disabled={disabled}
                                 >

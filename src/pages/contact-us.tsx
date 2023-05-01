@@ -1,7 +1,7 @@
 // Components
 import UserFormula from "@/components/UserFormula"
 
-const Form = () => {
+const contactUs = () => {
     return (
         <>
             <UserFormula />
@@ -9,4 +9,4 @@ const Form = () => {
     )
 }
 
-export default Form
+export default contactUs

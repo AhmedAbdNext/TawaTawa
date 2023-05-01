@@ -18,7 +18,8 @@ export interface ProductType {
     alt: string;
     src: string;
   }[];
-  rating?:number
+  rating?:number;
+  quantity?:number;
 }
 
 export interface CategoryType {

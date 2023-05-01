@@ -1,8 +1,8 @@
 export interface NavType {
-    hundleShippingCard: ()=>void
+    handleContinueShopping: ()=>void
 }
 
 export interface ShippingCardType {
     isOpen: boolean
-    hundleShippingCard: ()=>void
+    handleContinueShopping: ()=>void
 }

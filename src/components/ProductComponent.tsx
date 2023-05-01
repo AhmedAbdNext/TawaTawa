@@ -1,11 +1,30 @@
 import React from 'react'
 import Image from 'next/image'
-import { ProductComponentType } from '@/Types/ProductType'
+import { useSetRecoilState } from 'recoil';
+// Types
+import { ProductComponentType, ProductType } from '@/Types/ProductType'
+// Utils
 import { myLoader } from '@/Utils/products'
+// Components
 import BodyLayer from './BodyLayer'
+// Recoil
+import { recoilProductsInShoppingCart } from '@/Utils/recoilAtoms'
 
 
 export default function ProductComponent({products}: ProductComponentType) {
+  // Recoil
+  const setShoppingCart = useSetRecoilState(recoilProductsInShoppingCart)
+  // Handle add to bag
+  const handleAddToBag = (product:ProductType) => {
+    // add to recoil
+    setShoppingCart((oldCart:ProductType[]) => {
+      product.quantity= 1
+      return [...oldCart, product]
+    }
+    )
+  }
+
+
   return (
     <BodyLayer>
       <ul className="grid grid-cols-4 gap-10">
@@ -33,7 +52,12 @@ export default function ProductComponent({products}: ProductComponentType) {
                       {/* ::::colors description */}
                       <p className="line-clamp-3  mt-1 text-sm text-gray-500 font-medium">{product.description}</p>
                       {/* ::::add to cart button */}
-                      <button className="mt-4 py-1.5 w-full rounded-md bg-gray-200 text-sm text-gray-600 font-semibold tracking-wide hover:bg-gray-300 hover:text-gray-800">Add to bag</button>
+                      <button
+                      onClick={(e)=> {
+                        e.preventDefault()
+                        handleAddToBag(product)
+                      }}
+                       className="mt-4 py-1.5 w-full rounded-md bg-gray-200 text-sm text-gray-600 font-semibold tracking-wide hover:bg-gray-300 hover:text-gray-800">Add to bag</button>
                     </div>
                   </div>
                 </a>

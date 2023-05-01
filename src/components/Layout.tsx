@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Navbars from './Navbars'
 import Footer from './Footer'
 import styles from '../styles/Home.module.css'
-import ShoppingCard from './ShoppingCard'
+import DialogShoppingCard from './DialogShoppingCart'
 import { useState } from 'react'
 
 
@@ -12,7 +12,7 @@ interface LayoutType {
 
 const Layout = ({ children }: LayoutType) => {
     const [isShoppingCardOpen, setIsShoppingCardOpen] = useState<boolean>(false)
-    const  hundleShippingCard = () => {
+    const  handleContinueShopping = () => {
         setIsShoppingCardOpen(!isShoppingCardOpen)
     }
 
@@ -24,12 +24,12 @@ const Layout = ({ children }: LayoutType) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbars hundleShippingCard={hundleShippingCard} />
+            <Navbars handleContinueShopping={handleContinueShopping} />
             <main className={styles.main}>
                 {children}
             </main>
             <Footer />
-            <ShoppingCard isOpen={isShoppingCardOpen} hundleShippingCard={hundleShippingCard}/>
+            <DialogShoppingCard isOpen={isShoppingCardOpen} handleContinueShopping={handleContinueShopping}/>
         </>
 
     )

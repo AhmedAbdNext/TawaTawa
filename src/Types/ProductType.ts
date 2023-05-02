@@ -2,6 +2,7 @@ import { Attachment } from "airtable";
 import { MCategoryType } from "./CategroyType";
 
 export interface ProductType {
+  mId:string,
   id: number;
   name: string;
   categories: CategoryType;

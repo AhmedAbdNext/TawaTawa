@@ -53,6 +53,7 @@ const getResultFunction = (records: Records<FieldSet> | undefined) => {
       });
     }
     results.push({
+      mId:record.id,
       id: Number(record.get("id")),
       name: record.get("name") + "",
       categories: {

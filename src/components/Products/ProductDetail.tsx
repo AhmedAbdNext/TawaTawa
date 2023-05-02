@@ -48,7 +48,8 @@ export default function ProductDetail(product: ProductType) {
                 <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                     <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
                         <Image
-                            loader={() => { return myLoader(product.mainPicture.src) }} src={product.mainPicture.src} alt={product.mainPicture.alt}
+                            loader={() => { return myLoader(product.mainPicture.src) }}
+                             src={product.mainPicture.src} alt={product.mainPicture.alt}
                             className="h-full w-full object-cover object-center"
                             width={100}
                             height={100}

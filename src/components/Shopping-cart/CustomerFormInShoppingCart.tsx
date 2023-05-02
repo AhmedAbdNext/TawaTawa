@@ -54,7 +54,7 @@ const CustomerFormInShoppingCart = () => {
             const updatedCustomer = Object.fromEntries(
                 Object.entries(customer).map(([customerKey, customerValue]) => [customerKey, customerValue.value])
             );
-            const {data}:{data:IResponse} = await axios.post("/api/customer", {
+            const {data}:{data:IResponse} = await axios.post("/api/order", {
                 token,
                 customer : updatedCustomer,
                 products: productsInShoppoingCart

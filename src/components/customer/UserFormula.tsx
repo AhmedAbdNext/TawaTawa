@@ -3,9 +3,9 @@ import { useState } from 'react'
 // Utils
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 // Components
-import BodyLayer from './BodyLayer'
+import BodyLayer from '../App/BodyLayer'
 import axios from 'axios';
-import Snackbar from './Snackbar';
+import Snackbar from '../Snackbar';
 import { IResponse } from '@/Types/Response';
 
 export default function UserFormula() {

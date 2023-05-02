@@ -1,5 +1,5 @@
 // Components
-import UserFormula from "@/components/UserFormula"
+import UserFormula from "@/components/customer/UserFormula"
 
 const contactUs = () => {
     return (

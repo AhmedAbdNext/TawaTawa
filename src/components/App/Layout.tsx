@@ -1,9 +1,9 @@
 import Head from 'next/head'
+import styles from '../../styles/Home.module.css'
+import DialogShoppingCard from '../MainIndex/DialogShoppingCart'
+import { useState } from 'react'
 import Navbars from './Navbars'
 import Footer from './Footer'
-import styles from '../styles/Home.module.css'
-import DialogShoppingCard from './DialogShoppingCart'
-import { useState } from 'react'
 
 
 interface LayoutType {

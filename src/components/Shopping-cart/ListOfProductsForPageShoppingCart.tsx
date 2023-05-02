@@ -47,6 +47,7 @@ const ListOfProductsForPageShoppingCart = () => {
                                 className="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
                                 width={30}
                                 height={30}
+                                unoptimized
                             />
                             <div className="flex flex-col justify-between w-full pb-4">
                                 <div className="flex justify-between w-full pb-2 space-x-2">

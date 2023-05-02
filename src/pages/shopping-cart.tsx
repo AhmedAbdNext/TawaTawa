@@ -1,11 +1,11 @@
 // Components
-import BodyLayer from "@/components/BodyLayer"
+import BodyLayer from "@/components/App/BodyLayer"
 import PageShoppingCart from "@/components/Shopping-cart/PageShoppingCart"
 
 const contactUs = () => {
     return (
         <>
-            <BodyLayer>
+            <BodyLayer hasNoBackGround>
                 <PageShoppingCart />
             </BodyLayer>
         </>

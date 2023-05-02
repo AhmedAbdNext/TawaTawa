@@ -4,7 +4,7 @@ import {RecoilRoot} from 'recoil';
 // Styles 
 import '@/styles/globals.css'
 // Components
-import Layout from '../components/Layout'
+import Layout from '../components/App/Layout'
 
 
 export default function App({ Component, pageProps }: AppProps) {

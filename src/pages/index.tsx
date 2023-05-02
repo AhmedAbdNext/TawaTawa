@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { GetStaticProps } from 'next'
 // Compoents
-import ProductComponent from '@/components/ProductComponent'
-import CategoriesNav from '@/components/CategoriesNav'
+import ProductComponent from '@/components/MainIndex/ProductComponent'
+import CategoriesNav from '@/components/MainIndex/CategoriesNav'
 // Utils
 import { fetchProductsFromAirtable } from '@/Utils/products'
 import fetchCategoriesFromAirtable from '@/Utils/categories'

@@ -1,6 +1,6 @@
 import { ProductType } from "@/Types/ProductType";
 import { fetchAllProducstsFromAirtable, getProductById } from "@/Utils/products";
-import ProductDetail from "@/components/ProductDetail"
+import ProductDetail from "@/components/Products/ProductDetail"
 import { GetStaticPaths, GetStaticProps } from "next";
 
 interface ProductComponent {

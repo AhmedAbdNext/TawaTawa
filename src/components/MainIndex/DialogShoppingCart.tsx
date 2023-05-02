@@ -83,10 +83,12 @@ export default function DialogShoppingCard({ isOpen, handleContinueShopping }: S
                                   <li key={product.id} className="flex py-6">
                                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                       <Image
-                                        loader={() => { return myLoader(product.mainPicture.src) }} src={product.mainPicture.src} alt={product.mainPicture.alt}
+                                        loader={() => { return myLoader(product.mainPicture.src) }} 
+                                        src={product.mainPicture.src} alt={product.mainPicture.alt}
                                         className="h-full w-full object-cover object-center"
                                         width={30}
                                         height={30}
+                                        unoptimized
                                       />
                                     </div>
 
@@ -136,6 +138,9 @@ export default function DialogShoppingCard({ isOpen, handleContinueShopping }: S
                           </div>
                           <div className="mt-6">
                             <Link href="/shopping-cart"
+                            onClick={
+                              handleContinueShopping
+                            }
                               className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                             >
                               Passer commande

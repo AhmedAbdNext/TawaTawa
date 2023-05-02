@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import Snackbar from "../Snackbar";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { recoilProductsInShoppingCart } from "@/Utils/recoilAtoms";
 import { IResponse } from "@/Types/Response"
 import LoadingModal from "../LoadingModal";
 import MessageModal from "../MessageModal";
+import { toast } from "react-toastify";
 
 const CustomerFormInShoppingCart = () => {
     // Recoil get Product List from shoppingCart
@@ -48,17 +48,27 @@ const CustomerFormInShoppingCart = () => {
         try {
             const token = await executeRecaptcha();
             if (!token) {
-                setResponse({ message:"Votre code reçu n'est pas valide, veuillez vérifier votre code reçu", status: "Failed" });
+                setResponse({ message: "Votre code reçu n'est pas valide, veuillez vérifier votre code reçu", status: "Failed" });
                 return;
             }
             const updatedCustomer = Object.fromEntries(
                 Object.entries(customer).map(([customerKey, customerValue]) => [customerKey, customerValue.value])
             );
-            const {data}:{data:IResponse} = await axios.post("/api/order", {
+            const { data }: { data: IResponse } = await axios.post("/api/order", {
                 token,
-                customer : updatedCustomer,
+                customer: updatedCustomer,
                 products: productsInShoppoingCart
             });
+
+            if (data.status === "Success") {
+                toast.success(data.message);
+                // navi to the home page
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 100);
+            } else {
+                toast.error(data.message);
+            }
             setResponse(data);
             setLoading(false)
             setShowModal(true);
@@ -76,11 +86,11 @@ const CustomerFormInShoppingCart = () => {
                 </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="LastName">Prénom (*)</label>
-                    <input  required id="LastName" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                    <input required id="LastName" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                 </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="emailAddress">Address Email (*)</label>
-                    <input required  id="emailAddress" type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                    <input required id="emailAddress" type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                 </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="phone">Téléphone (*)</label>
@@ -88,11 +98,11 @@ const CustomerFormInShoppingCart = () => {
                 </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="address">Adresse (*)</label>
-                    <input required  id="address" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                    <input required id="address" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                 </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="city">Ville (*)</label>
-                    <input required  id="city" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                    <input required id="city" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                 </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="zip">Code Postal (*)</label>
@@ -102,13 +112,13 @@ const CustomerFormInShoppingCart = () => {
                     <label className="text-gray-700 dark:text-gray-200" id="billingAddress">Adresse de facturation</label>
                     <input id="billingAddress" type="text" placeholder="Si différente de l'adresse de livraison" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                 </div>
-                 <div>
+                <div>
                     <label className="text-gray-700 dark:text-gray-200" id="date">Date de livraison (*)</label>
-                    <input required  id="date" type="date" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
-                 </div>
+                    <input required id="date" type="date" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                </div>
                 <div>
                     <label className="text-gray-700 dark:text-gray-200" id="payment">Moyen de paiement (*)</label>
-                    <select  required  id="payment" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900">
+                    <select required id="payment" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900">
                         <option value=""></option>
                         <option value="Paiement en espèces">Paiement en espèces</option>
                         <option value="Chèques bancaires">Chèques bancaires </option>
@@ -122,19 +132,19 @@ const CustomerFormInShoppingCart = () => {
             </div>
 
             <div className="flex justify-end mt-6">
-                <button type="submit"  className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-400 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-600">Save</button>
+                <button type="submit" className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-400 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-600">Save</button>
             </div>
             {
-                isLoading && (<LoadingModal/>)
+                isLoading && (<LoadingModal />)
             }
             {
                 response && showModal && <MessageModal
-                message={ response.message }
-                status={ response.status}
-                 closeModal={() => { 
-                    setShowModal(false)
+                    message={response.message}
+                    status={response.status}
+                    closeModal={() => {
+                        setShowModal(false)
                         setResponse(null)
-                    } } />
+                    }} />
             }
         </form>
     )

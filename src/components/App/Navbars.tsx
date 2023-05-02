@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { NavType } from '@/Types/NavigationTypes'
+import { toast } from 'react-toastify'
 
 interface NavigationType {
     name: string
@@ -51,9 +52,10 @@ export default function Navbars({ handleContinueShopping }: NavType) {
             navigation[0].current = true
             break;
         default:
+            restAll(navigation)
             break;
     }
-
+    // display a toast with loading in progress
     return (
         <Disclosure as="nav" className="bg-white">
             {({ open }) => (
@@ -101,6 +103,20 @@ export default function Navbars({ handleContinueShopping }: NavType) {
                                                     'block rounded-md px-3 py-2 text-base font-medium'
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}
+                                                onClick={() =>{
+                                                    // toast processing in french 
+                                                    if(item.href === "/") {
+                                                        toast("Chargement en cours...", {
+                                                            position: toast.POSITION.TOP_LEFT,
+                                                            autoClose: 3000,
+                                                            hideProgressBar: false,
+                                                            closeOnClick: true,
+                                                            pauseOnHover: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                        });
+                                                    }
+                                                }}
                                             >
                                                 {item.name}
                                             </Link>

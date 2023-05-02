@@ -5,7 +5,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 // Components
 import BodyLayer from '../App/BodyLayer'
 import axios from 'axios';
-import Snackbar from '../Snackbar';
+import { toast } from 'react-toastify';
 import { IResponse } from '@/Types/Response';
 
 export default function UserFormula() {
@@ -54,7 +54,11 @@ export default function UserFormula() {
         token,
         ...updatedCustomer
       });
-
+      if (result.data.status === "Success") {
+        toast.success(result.data.message);
+      } else {
+        toast.error(result.data.message);
+      }
       if (result.data) {
         setResponse({
           message: result.data.message,
@@ -63,6 +67,7 @@ export default function UserFormula() {
       }
       setBtnDisabled(false);
     } catch (error) {
+      toast.error("Failed to Send!!!");
       setResponse({ message: "Failed to Send!!!", status: "Failed" });
       setBtnDisabled(false);
     }
@@ -124,9 +129,6 @@ export default function UserFormula() {
                 <textarea id="message" rows={8} placeholder="Message" cols={30}
                   className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900" />
               </div>
-            </div>
-            <div className="col-span-full">
-              {response?.status === "Failed" && <Snackbar message={response.message} type="error" />}
             </div>
             <div className="col-span-full flex justify-end">
               <button type="submit" disabled={isBtnDisabled} className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-violet-600 border border-transparent rounded-md shadow-sm hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500">

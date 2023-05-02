@@ -9,6 +9,7 @@ import { myLoader } from '@/Utils/products'
 import BodyLayer from '../App/BodyLayer'
 // Recoil
 import { recoilProductsInShoppingCart } from '@/Utils/recoilAtoms'
+import { toast } from 'react-toastify';
 
 
 export default function ProductComponent({ products }: ProductComponentType) {
@@ -35,6 +36,8 @@ export default function ProductComponent({ products }: ProductComponentType) {
         return [...oldProducts, { ...product, quantity: 1 }]
       }
     })
+    // Toast display that the product was added french
+    toast.success("Le produit a été ajouté au panier")
   }
 
 

@@ -1,6 +1,8 @@
 import type { AppProps } from 'next/app'
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import {RecoilRoot} from 'recoil';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Styles 
 import '@/styles/globals.css'
 // Components
@@ -20,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }}>
         <Layout>
           <Component {...pageProps} />
+          <ToastContainer position="bottom-right" />
         </Layout>
       </GoogleReCaptchaProvider>
     </RecoilRoot>
